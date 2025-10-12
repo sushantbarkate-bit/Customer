@@ -1,0 +1,25 @@
+<!-- <contact-list></contact-list> -->
+ <router-outlet></router-outlet>
+<!-- <main></main> -->
+<div>
+  <h2>Bank Details</h2>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Bank Name</th>
+        <th>MICR Code</th>
+        <th>IFSC Code</th>
+        <th>Address</th>
+      </tr>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let bank of banks">
+        <td>{{ bank.name }}</td>
+        <td>{{ bank.micr }}</td>
+        <td>{{ bank.ifsc }}</td>
+        <td>{{ bank.address }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,23 @@
+{
+  "contact.add.new.label": "New",
+  "constact.contact.application.title": "Contact Application",
+  "contact.list.title": "Contact list",
+  "contact.name": "Name",
+  "contact.micr": "MICR",
+  "contact.ifsc": "IFSC",
+  "contact.address": "Address",
+  "WELCOME": "Welcome to our app",
+  "contact.firstName": "First Name",
+  "contact.lastName": "Last Name",
+  "contact.email": "Email",
+  "contact.phone": "Phone",
+  "contact.city": "City",
+  "contact.state": "State",
+  "contact.country": "Country",
+  "contact.zip": "Zip Code",
+  "contact.add.submit": "Submit",
+  "contact.add.title": "Add Contact",
+  "contact.save.title": "Save",
+  "contact.cancel.title": "Cancel",
+  "contact.edit.title": "Edit"
+}

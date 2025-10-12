@@ -1,0 +1,101 @@
+.contact-list-container {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 100%;
+  margin: 30px auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contact-list-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #222;
+}
+
+.contact-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Base table styling */
+.contact-table {
+  width: 100%;
+  min-width: 1000px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.contact-table th,
+.contact-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+/* Header */
+.contact-table thead th {
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Body rows */
+.body-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.body-table tr:hover {
+  background-color: #f1faff;
+  cursor: pointer;
+}
+
+/* Virtual Scroll viewport */
+.viewport {
+  display: block;
+  height: 500px;
+  overflow: auto;
+}
+
+/* Action buttons */
+.contact-actions-cell {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-actions-cell button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.contact-actions-cell .view-btn {
+  background-color: #17a2b8;
+  color: #fff;
+}
+.contact-actions-cell .view-btn:hover {
+  background-color: #138496;
+}
+
+.contact-actions-cell .delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+.contact-actions-cell .delete-btn:hover {
+  background-color: #c82333;
+}
+
+.contact-actions-cell i {
+  pointer-events: none;
+}

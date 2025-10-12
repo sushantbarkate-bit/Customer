@@ -1,0 +1,62 @@
+<main-header [headerConfig]="headerConfig" (headerEvents)="headerEvents($event)"></main-header>
+<div class="add-contact-container">
+  <h2>{{ 'contact.add.title' | translate }}</h2>
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <label>{{ 'contact.firstName' | translate }}</label>
+      <input type="text" formControlName="firstName" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.lastName' | translate }}</label>
+      <input type="text" formControlName="lastName" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.email' | translate }}</label>
+      <input type="email" formControlName="email" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.phone' | translate }}</label>
+      <input type="text" formControlName="phone" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.micr' | translate }}</label>
+      <input type="text" formControlName="micr" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.ifsc' | translate }}</label>
+      <input type="text" formControlName="ifsc" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.address' | translate }}</label>
+      <input type="text" formControlName="address" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.city' | translate }}</label>
+      <input type="text" formControlName="city" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.state' | translate }}</label>
+      <input type="text" formControlName="state" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.zip' | translate }}</label>
+      <input type="text" formControlName="zip" />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'contact.country' | translate }}</label>
+      <input type="text" formControlName="country" />
+    </div>
+
+    <button type="submit" [disabled]="contactForm.invalid">{{ 'contact.add.submit' | translate }}</button>
+  </form>
+</div>

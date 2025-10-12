@@ -1,0 +1,42 @@
+.app-header {
+  display: flex;
+  justify-content: space-between; /* title left, button right */
+  align-items: center;
+  background-color: #ffffff;      /* white box */
+  padding: 12px 20px;
+  border-radius: 16px;            /* rounded corners */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* subtle shadow */
+  max-width: 800px;               /* optional width */
+  margin: 20px auto;              /* center on page */
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.app-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;                        /* space between text and plus */
+  background-color: #007bff;       /* blue button */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.app-button:hover {
+  background-color: #0056b3;       /* darker blue on hover */
+}
+
+.app-button .plus {
+  font-weight: bold;
+  font-size: 16px;
+}

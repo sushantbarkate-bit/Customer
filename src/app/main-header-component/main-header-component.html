@@ -1,0 +1,21 @@
+<header class="app-header">
+  <h1 class="app-title">{{ headerConfig.headerTitle | translate}}</h1>
+  <button *ngIf="headerConfig.showAddButton" class="app-button" [routerLink]="['/add-contact']">
+    {{ 'contact.add.new.label' | translate }}
+    <span class="plus">+</span>
+  </button>
+
+  <button *ngIf="headerConfig.showSaveButton" (click)="save()" class="app-button">
+    {{ 'contact.save.title' | translate }}
+  </button>
+
+  <button *ngIf="headerConfig.showEditButton" (click)="edit()" class="app-button">
+    {{ 'contact.edit.title' | translate }}
+  </button>
+
+  <button *ngIf="headerConfig.showCancelButton" (click)="cancel()" class="app-button">
+    {{ 'contact.cancel.title' | translate }}
+  </button>
+
+
+</header>

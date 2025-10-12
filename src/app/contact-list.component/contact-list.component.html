@@ -1,0 +1,54 @@
+<div class="contact-list-container">
+  <h2>{{ 'contact.list.title' | translate }}</h2>
+
+  <div class="contact-table-wrapper">
+    <table class="contact-table">
+      <thead>
+        <tr>
+          <th>{{ 'contact.name' | translate }}</th>
+          <th>{{ 'contact.email' | translate }}</th>
+          <th>{{ 'contact.phone' | translate }}</th>
+          <th>{{ 'contact.ifsc' | translate }}</th>
+          <th>{{ 'contact.micr' | translate }}</th>
+          <th>{{ 'contact.address' | translate }}</th>
+          <th>{{ 'contact.state' | translate }}</th>
+          <th>{{ 'contact.zip' | translate }}</th>
+          <th>{{ 'contact.country' | translate }}</th>
+          <th>{{ 'contact.actions' | translate }}</th>
+        </tr>
+      </thead>
+    </table>
+
+    <!-- Virtual Scroll Rows -->
+    <cdk-virtual-scroll-viewport 
+      itemSize="56" 
+      class="viewport"
+      (scrolledIndexChange)="onScroll($event)">
+      <table class="contact-table body-table">
+        <tbody>
+          <ng-container *cdkVirtualFor="let contact of contacts">
+            <tr>
+              <td>{{ contact.firstName + ' ' + contact.lastName }}</td>
+              <td>{{ contact.email || '--' }}</td>
+              <td>{{ contact.phone || '--' }}</td>
+              <td>{{ contact.ifsc || '--' }}</td>
+              <td>{{ contact.micr || '--' }}</td>
+              <td>{{ contact.address || '--' }}</td>
+              <td>{{ contact.state || '--' }}</td>
+              <td>{{ contact.zip || '--' }}</td>
+              <td>{{ contact.country || '--' }}</td>
+              <td class="contact-actions-cell">
+                <button class="view-btn" (click)="viewContact(contact)">
+                  <i class="fa fa-eye"></i>
+                </button>
+                <button class="delete-btn" (click)="deleteContact(contact)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </cdk-virtual-scroll-viewport>
+  </div>
+</div>
