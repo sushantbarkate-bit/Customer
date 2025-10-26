@@ -1,0 +1,59 @@
+<div class="login-wrapper">
+  <div class="glass-panel">
+    <h2>{{(addNewUser ? 'contact.sign.up.label' : 'contact.sign.in.label') | translate}}</h2>
+
+    <form [formGroup]="loginForm">
+      <div class="input-field">
+        <label>{{'contact.username.or.email.label' | translate}}</label>
+        <input formControlName="username" type="text" required />
+      </div>
+
+      <ng-container *ngIf="addNewUser">
+        <div class="input-field">
+          <label>{{'contact.first.name.label' | translate}}</label>
+          <input formControlName="firstName" type="text" required />
+        </div>
+
+        <div class="input-field">
+          <label>{{'contact.last.name.label' | translate}}</label>
+          <input formControlName="lastName" type="text" required />
+        </div>
+
+        <div class="input-field">
+          <label>{{'contact.email' | translate}}</label>
+          <input formControlName="email" type="text" required />
+        </div>
+
+      </ng-container>
+
+      <div class="password-field">
+        <label>{{'contact.password.label' | translate}}</label>
+        <input formControlName="password" [type]="showPassword ? 'text' : 'password'" required />
+        <span class="toggle-password" (click)="togglePasswordVisibility()">
+          <i [ngClass]="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+        </span>
+      </div>
+
+      <div class="options">
+        <ng-container *ngIf="addNewUser === false">
+          <label>
+            <input type="checkbox" formControlName="rememberMe" /> {{'contact.remember.me.label' | translate}}
+          </label>
+          <a routerLink="/forgot-password">{{'contact.forgot.password.label' | translate}}</a>
+        </ng-container>
+      </div>
+      <!-- [disabled]="loginForm.invalid" -->
+      <button type="submit" (click)="onSubmit()" >{{ (addNewUser ?
+        'contact.sign.up.label' : 'contact.sign.in.label') | translate}}</button>
+
+      <p class="register" *ngIf="addNewUser === false">
+        {{'contact.dont.have.an.account.register.label' | translate}}
+        <a (click)="registerUser()">{{'contact.register.label' | translate}}</a>
+      </p>
+
+      <p class="log-in" *ngIf="addNewUser">
+        <a (click)="login()">{{'contact.login.label' | translate}}</a>
+      </p>
+    </form>
+  </div>
+</div>

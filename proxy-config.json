@@ -1,6 +1,12 @@
 {
-    "/contacts/service": {
-    "target": "http://localhost:8080/",
+  "/contacts/service": {
+    "target": "http://localhost:8085/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/auth": {
+    "target": "http://localhost:8082/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true

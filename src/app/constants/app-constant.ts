@@ -4,3 +4,8 @@ export const AppConstant = {
     CANCEL: 'CANCEL',
     SAVE: 'SAVE'
 }
+
+export const TYPE_CONSTANT = {
+    "STRING": 'string',
+    "NUMBER": 'number'
+}

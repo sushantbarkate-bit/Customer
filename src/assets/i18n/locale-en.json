@@ -19,5 +19,17 @@
   "contact.add.title": "Add Contact",
   "contact.save.title": "Save",
   "contact.cancel.title": "Cancel",
-  "contact.edit.title": "Edit"
+  "contact.edit.title": "Edit",
+  "contact.username.or.email.label": "Username or email",
+  "contact.password.label": "Password",
+  "contact.remember.me.label": "Remember me",
+  "contact.dont.have.an.account.register.label":"Don’t have an account?",
+  "contact.forgot.password.label": "Forgot Password?",
+  "contact.register.label": "Register",
+  "contact.sign.in.label":"Sign in",
+  "contact.first.name.label": "First name",
+  "contact.last.name.label": "Last name",
+  "contact.login.label": "Login",
+  "contact.sign.up.label": "Sign up"
+  
 }
