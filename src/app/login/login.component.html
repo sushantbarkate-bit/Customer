@@ -4,7 +4,7 @@
 
     <form [formGroup]="loginForm">
       <div class="input-field">
-        <label>{{'contact.username.or.email.label' | translate}}</label>
+        <label>{{(addNewUser ? 'contact.username.label': 'contact.username.or.email.label') | translate}}</label>
         <input formControlName="username" type="text" required />
       </div>
 
@@ -43,7 +43,7 @@
         </ng-container>
       </div>
       <!-- [disabled]="loginForm.invalid" -->
-      <button type="submit" (click)="onSubmit()" >{{ (addNewUser ?
+      <button type="submit" (click)="onSubmit()">{{ (addNewUser ?
         'contact.sign.up.label' : 'contact.sign.in.label') | translate}}</button>
 
       <p class="register" *ngIf="addNewUser === false">

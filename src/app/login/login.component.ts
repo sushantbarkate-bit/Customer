@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
     addNewUser: boolean = false;
     showPassword = false;
 
-    ngOnInit(): void {
-
+    async ngOnInit(): Promise<void> {
+        // await this.getTranslation();
     }
 
     constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router, private cacheService: CacheService, private translate: TranslateService) {
@@ -36,6 +36,22 @@ export class LoginComponent implements OnInit {
             rememberMe: [false],
         });
     }
+
+    // getTranslation(): Promise<boolean> {
+    //     return new Promise((resolve, reject) => {
+    //         this.translate.currentLoader.getTranslation(this.translate.currentLang).pipe(takeUntil(this.unSubscribe)).subscribe({
+    //             next: (success) => {
+    //                 console.log('working......................')
+    //                 resolve(true);
+    //             },
+    //             error: (error) => {
+    //                 console.log('error......................')
+    //                 resolve(true);
+    //             }
+    //         });
+
+    //     });
+    // }
 
     togglePasswordVisibility() {
         this.showPassword = !this.showPassword;
@@ -56,7 +72,7 @@ export class LoginComponent implements OnInit {
                 }
             });
         } else {
-            this.loginService.login({ username: this.loginForm.get('email')?.value, password: this.loginForm.get('password')?.value }).pipe(takeUntil(this.unSubscribe)).subscribe({
+            this.loginService.login({ username: this.loginForm.get('username')?.value, password: this.loginForm.get('password')?.value }).pipe(takeUntil(this.unSubscribe)).subscribe({
                 next: (response) => {
                     this.cacheService.setSessionStorage(SessionStorageKeys.AUTH_INFO, response.body);
                     this.router.navigate(['/contact']);

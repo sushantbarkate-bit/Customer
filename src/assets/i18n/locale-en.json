@@ -30,6 +30,7 @@
   "contact.first.name.label": "First name",
   "contact.last.name.label": "Last name",
   "contact.login.label": "Login",
-  "contact.sign.up.label": "Sign up"
+  "contact.sign.up.label": "Sign up",
+  "contact.username.label": "Username"
   
 }

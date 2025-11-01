@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
       request.url.includes('/auth/login') ||
       request.url.includes('/auth/register');
 
-    if (token.accessToken && !isAuthRequest) {
+    if (token?.accessToken && !isAuthRequest) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token.accessToken}`
