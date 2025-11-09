@@ -31,6 +31,9 @@
   "contact.last.name.label": "Last name",
   "contact.login.label": "Login",
   "contact.sign.up.label": "Sign up",
-  "contact.username.label": "Username"
-  
+  "contact.username.label": "Username",
+  "contact.actions": "Actions",
+  "contact.label": "Contact",
+  "contact.previous.label": "Previous",
+  "contact.next.label": "Next"
 }

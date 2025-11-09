@@ -1,18 +1,45 @@
 .add-contact-container {
   max-width: 600px;
   margin: 20px auto;
-  padding: 16px;
+  padding: 16px 24px;
   background-color: #f9f9f9;
-  border-radius: 8px;
-  font-family: Arial, sans-serif;
+  border-radius: 12px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
+/* Navigation arrows at top */
+.nav-arrows {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.nav-arrows i {
+  font-size: 20px;
+  color: #007bff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-arrows i:hover {
+  color: #0056b3;
+  transform: scale(1.15);
+}
+
+/* Heading */
 .add-contact-container h2 {
   text-align: center;
-  margin-bottom: 16px;
+  margin: 10px 0 20px;
   color: #333;
+  font-weight: 600;
+  font-size: 1.5rem;
 }
 
+/* Form styling */
 .form-row {
   display: flex;
   flex-direction: column;
@@ -26,9 +53,17 @@
 }
 
 .form-row input {
-  padding: 8px;
+  padding: 8px 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-row input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
 }
 
 button[type="submit"] {
@@ -38,8 +73,13 @@ button[type="submit"] {
   color: white;
   font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
 
 button[type="submit"]:disabled {

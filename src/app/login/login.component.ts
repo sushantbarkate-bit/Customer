@@ -7,6 +7,8 @@ import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
 import { CacheService } from "../services/cache-service/cache.service";
 import { SessionStorageKeys } from "../constants/SessionStorageKeys";
+import { HttpResponse } from "@angular/common/http";
+import { LoginResponse } from "../model/login-model";
 
 @Component({
     selector: 'login',
@@ -73,15 +75,19 @@ export class LoginComponent implements OnInit {
             });
         } else {
             this.loginService.login({ username: this.loginForm.get('username')?.value, password: this.loginForm.get('password')?.value }).pipe(takeUntil(this.unSubscribe)).subscribe({
-                next: (response) => {
-                    this.cacheService.setSessionStorage(SessionStorageKeys.AUTH_INFO, response.body);
-                    this.router.navigate(['/contact']);
+                next: (response: HttpResponse<LoginResponse>) => {
+                    const body = response.body;
+                    if (body) {
+                        this.loginService.setTokens(body);
+                        this.router.navigate(['/contact']);
+                    } else {
+                        console.error('Login response contains no body.');
+                    }
                 }, error: (response) => {
 
                 }
             });
         }
-        // }
     }
 
     login(): void {

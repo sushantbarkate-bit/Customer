@@ -22,7 +22,8 @@ export class MainComponent implements OnInit {
       headerTitle: 'constact.contact.application.title',
       showAddButton: true,
       showCancelButton: false,
-      showEditButton: false
+      showEditButton: false,
+      showNavigationArrow: false
     }
    
   }

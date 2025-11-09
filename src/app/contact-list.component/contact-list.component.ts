@@ -39,23 +39,37 @@ export class ContactListComponent implements OnInit {
     if (this.loading || (this.totalPages && this.page >= this.totalPages)) return;
 
     this.loading = true;
-    this.contactService.getContacts(this.page, this.size).subscribe({
+    this.contactService.filterContact(this.page, this.size, '', true, 'sushant').subscribe({
       next: (response: any) => {
-        this.contacts = [...this.contacts , ...response.body];
+        this.contacts = [...this.contacts, ...response.body];
         // this.totalPages = res.totalPages;
         this.page++;
         this.loading = false;
       }
     })
+    // this.contactService.getContacts(this.page, this.size, '',true, 'sushant').subscribe({
+    //   next: (response: any) => {
+    //     this.contacts = [...this.contacts , ...response.body];
+    //     // this.totalPages = res.totalPages;
+    //     this.page++;
+    //     this.loading = false;
+    //   }
+    // })
+  }
+
+  isFilterOpen = false;
+
+  toggleFilterPanel() {
+    this.isFilterOpen = !this.isFilterOpen;
   }
 
   onScroll(index: number) {
     const total = this.contacts.length;
-  const threshold = 15; // start loading 5 items before reaching end
-  if (!this.loading && index + threshold >= total) {
-    // this.loadNextPage();
-    this.loadContacts();
-  }
+    const threshold = 15; // start loading 5 items before reaching end
+    if (!this.loading && index + threshold >= total) {
+      // this.loadNextPage();
+      this.loadContacts();
+    }
     // this.loadContacts();
   }
 
@@ -63,12 +77,16 @@ export class ContactListComponent implements OnInit {
     this.router.navigate(['/contact', contact.id, AppConstant.VIEW]);
   }
 
+  editContact(contact: Contact): void {
+    this.router.navigate(['/contact', contact.id, AppConstant.EDIT]);
+  }
+
   deleteContact(contact: any): void {
-      this.contactService.deleteContact(contact.id).pipe(takeUntil(this.subscribe$)).subscribe({
-        next:(response) => {
-          this.notificationsService.success('deleted');
-        }
-      })
+    this.contactService.deleteContact(contact.id).pipe(takeUntil(this.subscribe$)).subscribe({
+      next: (response) => {
+        this.notificationsService.success('deleted');
+      }
+    })
   }
 
 }

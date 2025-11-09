@@ -1,5 +1,6 @@
 export const AppConstant = {
     VIEW: 'view',
+    EDIT: 'edit',
     EDIT_CONTACT: 'EDIT_CONTACT',
     CANCEL: 'CANCEL',
     SAVE: 'SAVE'

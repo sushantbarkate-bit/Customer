@@ -5,7 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ContactService } from '../services/contact.service';
 import { Contact, HeaderConfig } from '../model/contact-model';
 import { Subject, takeUntil } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppConstant } from '../constants/app-constant';
 import { HttpResponse } from '@angular/common/http';
 import { MainHeaderComponent } from '../main-header-component/main-header-component';
@@ -30,6 +30,7 @@ export class AddEditContactComponent implements OnInit {
   constructor(
     private fb: FormBuilder, public translate: TranslateService,
     private contactService: ContactService,
+    private router: Router,
     private activatedRoute: ActivatedRoute) {
 
   }
@@ -47,7 +48,8 @@ export class AddEditContactComponent implements OnInit {
       headerTitle: 'constact.contact.application.title',
       showAddButton: false,
       showCancelButton: false,
-      showEditButton: true
+      showEditButton: true,
+      showNavigationArrow: true
     }
   }
 
@@ -58,6 +60,7 @@ export class AddEditContactComponent implements OnInit {
       showCancelButton: true,
       showEditButton: false,
       showSaveButton: true,
+      showNavigationArrow: false
     }
   }
 
@@ -144,7 +147,11 @@ export class AddEditContactComponent implements OnInit {
   }
 
   [AppConstant.SAVE](): void {
-    this.updateContact(this.getContactFromFormGroup());
+    if (this.contactId) {
+      this.updateContact(this.getContactFromFormGroup());
+    } else {
+      this.onSubmit();
+    }
   }
 
   getContactFromFormGroup(): Contact {
@@ -167,16 +174,22 @@ export class AddEditContactComponent implements OnInit {
     this.headerConfig.showSaveButton = true;
     this.headerConfig.showCancelButton = true;
     this.headerConfig.showEditButton = false;
+    this.headerConfig.showNavigationArrow = false;
     this.setEditMode();
     this.contactForm.enable();
   }
 
   [AppConstant.CANCEL](): void {
-    this.headerConfig.showSaveButton = false;
-    this.headerConfig.showCancelButton = false;
-    this.headerConfig.showEditButton = true;
-    this.contactForm.disable();
-    this.setViewMode();
+    if (this.contactId) {
+      this.headerConfig.showSaveButton = false;
+      this.headerConfig.showCancelButton = false;
+      this.headerConfig.showEditButton = true;
+      this.headerConfig.showNavigationArrow = true;
+      this.contactForm.disable();
+      this.setViewMode();
+    } else {
+      this.router.navigate(['contact']);
+    }
   }
 
   headerEvents(event: string): void {
@@ -250,11 +263,34 @@ export class AddEditContactComponent implements OnInit {
   onSubmit() {
 
     this.contactService.addNewContact(this.getContactFromFormGroup()).pipe(takeUntil(this.subscribe$)).subscribe({
-      next: (response) => {
+      next: (response: HttpResponse<Contact | null>) => {
+        const contactId = response.body?.id;
+        if (contactId) {
+          this.router.navigate(['contact', contactId, AppConstant.VIEW]);
+          this.setViewMode();
+        } else {
 
+          console.error('Created contact response has no body');
+        }
       }, error: () => {
 
       }
     })
+  }
+
+  goPrevious(): void {
+    this.contactService.getPreviousContact(this.contactId).subscribe((response: any) => {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['contact', response.body.id, AppConstant.VIEW]);
+    });
+  }
+
+  goNext(): void {
+    this.contactService.getNextContact(this.contactId).subscribe((response: any) => {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['contact', response.body.id, AppConstant.VIEW]);
+    });
   }
 }

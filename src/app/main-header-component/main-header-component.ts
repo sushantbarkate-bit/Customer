@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { HeaderConfig } from '../model/contact-model';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,10 @@ import { AppConstant } from '../constants/app-constant';
 export class MainHeaderComponent implements OnInit, OnDestroy {
   @Input() headerConfig!: HeaderConfig;
   @Output() headerEvents: EventEmitter<any> = new EventEmitter<any>()
+
+  constructor(private router: Router) {
+
+  }
 
   ngOnInit(): void {
 
@@ -33,6 +37,10 @@ export class MainHeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
 
+  }
+
+  backNavigation(): void {
+    this.router.navigate(['contact']);
   }
 
 }

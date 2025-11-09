@@ -20,29 +20,47 @@
     </table>
 
     <!-- Virtual Scroll Rows -->
-    <cdk-virtual-scroll-viewport 
-      itemSize="56" 
-      class="viewport"
-      (scrolledIndexChange)="onScroll($event)">
+    <cdk-virtual-scroll-viewport itemSize="56" class="viewport" (scrolledIndexChange)="onScroll($event)">
       <table class="contact-table body-table">
         <tbody>
           <ng-container *cdkVirtualFor="let contact of contacts">
             <tr>
-              <td>{{ contact.firstName + ' ' + contact.lastName }}</td>
-              <td>{{ contact.email || '--' }}</td>
-              <td>{{ contact.phone || '--' }}</td>
-              <td>{{ contact.ifsc || '--' }}</td>
-              <td>{{ contact.micr || '--' }}</td>
-              <td>{{ contact.address || '--' }}</td>
-              <td>{{ contact.state || '--' }}</td>
-              <td>{{ contact.zip || '--' }}</td>
-              <td>{{ contact.country || '--' }}</td>
+              <td [title]="contact.firstName + ' ' + contact.lastName">
+                {{ contact.firstName + ' ' + contact.lastName }}
+              </td>
+              <td [title]="contact.email || '--'">
+                {{ contact.email || '--' }}
+              </td>
+              <td [title]="contact.phone || '--'">
+                {{ contact.phone || '--' }}
+              </td>
+              <td [title]="contact.ifsc || '--'">
+                {{ contact.ifsc || '--' }}
+              </td>
+              <td [title]="contact.micr || '--'">
+                {{ contact.micr || '--' }}
+              </td>
+              <td [title]="contact.address || '--'">
+                {{ contact.address || '--' }}
+              </td>
+              <td [title]="contact.state || '--'">
+                {{ contact.state || '--' }}
+              </td>
+              <td [title]="contact.zip || '--'">
+                {{ contact.zip || '--' }}
+              </td>
+              <td [title]="contact.country || '--'">
+                {{ contact.country || '--' }}
+              </td>
               <td class="contact-actions-cell">
                 <button class="view-btn" (click)="viewContact(contact)">
                   <i class="fa fa-eye"></i>
                 </button>
                 <button class="delete-btn" (click)="deleteContact(contact)">
-                  <i class="fa fa-trash"></i>
+                  <i class="fa fa-trash" ></i>
+                </button>
+                <button class="view-btn" (click)="editContact(contact)">
+                  <i class="fa fa-edit"></i>
                 </button>
               </td>
             </tr>

@@ -51,6 +51,7 @@
 .body-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+
 .body-table tr:hover {
   background-color: #f1faff;
   cursor: pointer;
@@ -81,21 +82,47 @@
 }
 
 .contact-actions-cell .view-btn {
-  background-color: #17a2b8;
-  color: #fff;
+  /* background-color: #17a2b8; */
+  background: none;
+  color: #807c7c;
 }
+
 .contact-actions-cell .view-btn:hover {
-  background-color: #138496;
+  /* background-color: #138496; */
 }
 
 .contact-actions-cell .delete-btn {
-  background-color: #dc3545;
-  color: #fff;
+  background: none;
+  color: #807c7c;
 }
+
 .contact-actions-cell .delete-btn:hover {
-  background-color: #c82333;
+  /* background-color: #807c7c; */
 }
 
 .contact-actions-cell i {
   pointer-events: none;
+}
+
+.contact-table th,
+.contact-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
+
+  /* ✨ Fix overflow + ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  /* you can adjust column width as needed */
+}
+
+/* Optional: slightly wider important columns */
+.contact-table td:nth-child(1),
+.contact-table td:nth-child(2),
+.contact-table td:nth-child(6) {
+  max-width: 200px;
+  /* name, email, address */
 }

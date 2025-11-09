@@ -1,6 +1,15 @@
 <main-header [headerConfig]="headerConfig" (headerEvents)="headerEvents($event)"></main-header>
+
 <div class="add-contact-container">
-  <h2>{{ 'contact.add.title' | translate }}</h2>
+  <div class="nav-arrows">
+    <ng-container *ngIf="headerConfig.showNavigationArrow">
+      <i class="fa-solid fa-arrow-left" (click)="goPrevious()" [title]="'contact.previous.label' | translate"></i>
+      <i class="fa-solid fa-arrow-right" (click)="goNext()" [title]="'contact.next.label' | translate"></i>
+    </ng-container>
+  </div>
+
+  <h2>{{ 'contact.label' | translate }}</h2>
+
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <label>{{ 'contact.firstName' | translate }}</label>
@@ -56,7 +65,5 @@
       <label>{{ 'contact.country' | translate }}</label>
       <input type="text" formControlName="country" />
     </div>
-
-    <button type="submit" [disabled]="contactForm.invalid">{{ 'contact.add.submit' | translate }}</button>
   </form>
 </div>

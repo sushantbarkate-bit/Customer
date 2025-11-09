@@ -1,43 +1,50 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   HttpEvent,
-  HttpHandler,
   HttpInterceptor,
+  HttpHandler,
   HttpRequest,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { CacheService } from '../services/cache-service/cache.service';
-import { SessionStorageKeys } from '../constants/SessionStorageKeys';
+  HttpErrorResponse,
+} from "@angular/common/http";
+import { Observable, throwError, switchMap, catchError } from "rxjs";
+import { LoginService } from "../services/login-service/login.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private loginService: LoginService) {}
 
-  constructor(private router: Router, private cacheService: CacheService) {}
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this.loginService.accessToken;
+    let cloned = req;
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.cacheService.getSessionStorage(SessionStorageKeys.AUTH_INFO);
-
-    // Skip adding token for auth APIs
-    const isAuthRequest =
-      request.url.includes('/auth/login') ||
-      request.url.includes('/auth/register');
-
-    if (token?.accessToken && !isAuthRequest) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token.accessToken}`
-        }
+    // Attach token if exists
+    if (token) {
+      cloned = req.clone({
+        setHeaders: { Authorization: `Bearer ${token}` },
       });
     }
 
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401 || error.status === 403) {
-          localStorage.removeItem(SessionStorageKeys.AUTH_INFO);
-          this.router.navigate(['/login']);
+    return next.handle(cloned).pipe(
+      catchError((error) => {
+        if (error instanceof HttpErrorResponse && error.status === 403) {
+          // Token expired or invalid → try refresh
+          return this.loginService.refreshAccessToken().pipe(
+            switchMap((res: any) => {
+              const newToken = res?.body?.accessToken;
+              if (newToken) {
+                const retryReq = req.clone({
+                  setHeaders: { Authorization: `Bearer ${newToken}` },
+                });
+                return next.handle(retryReq);
+              }
+              this.loginService.clearTokens();
+              return throwError(() => error);
+            }),
+            catchError((err) => {
+              this.loginService.clearTokens();
+              return throwError(() => err);
+            })
+          );
         }
         return throwError(() => error);
       })

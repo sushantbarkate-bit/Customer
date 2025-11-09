@@ -19,4 +19,5 @@ export interface HeaderConfig {
   showEditButton?: boolean;
   showCancelButton?: boolean;
   showSaveButton?: boolean;
+  showNavigationArrow?: boolean;
 }
