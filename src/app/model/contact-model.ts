@@ -13,6 +13,12 @@ export interface Contact {
   country?: string;
 }
 
+export interface ContactFilter {
+  filter: string | Contact;
+  userId: string;
+  id: string;
+}
+
 export interface HeaderConfig {
   headerTitle?: string;
   showAddButton?: boolean;

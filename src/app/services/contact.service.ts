@@ -1,5 +1,5 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
-import { Contact } from "../model/contact-model";
+import { Contact, ContactFilter } from "../model/contact-model";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
@@ -15,25 +15,26 @@ export class ContactService {
         return this.httpClinet.post<Contact>('/contacts/service', contact, { observe: 'response' });
     }
 
-    filterContact(page: number, size: number, sortBy?: string, asc?: boolean, searchString?: string) {
-        let url = `/contacts/service/filter`;
-        // ?page=${page}&size=${size}`;
-        // if (sortBy) {
-        //     url = url + `&sort=${sortBy}`;
-        // }
-        // if (asc) {
-        //     url = url + ',asc';
-        // }
+    filterContact(page: number, size: number, sortBy?: string, order?: string, contact?: Contact) {
+        let url = `/contacts/service/filter?page=${page}&size=${size}`;
+        if (sortBy) {
+            url = url + `&sort=${sortBy}`;
+        }
+        if (order) {
+            url = url + `,${order}`;
+        }
         // if (searchString) {
         //     url = url + `&search=${searchString}`;
         // }
-        const contact: Contact = {
-            firstName: 'test',
-            lastName: '',
-            email: '',
-            phone: ''
-        }
         return this.httpClinet.post<Contact[]>(url, contact, { observe: 'response' });
+    }
+
+    saveFiltersApplied(contact: Contact, userId: string) {
+        return this.httpClinet.post(`/preference/save/filter/${userId}`, contact, { observe: 'response' });
+    }
+
+    getFilters(userId: string): Observable<HttpResponse<ContactFilter>> {
+        return this.httpClinet.get<ContactFilter>(`/preference/filter/${userId}`, { observe: 'response' });
     }
 
     getContacts(page: number, size: number, sortBy?: string, asc?: boolean, searchString?: string): Observable<HttpResponse<Contact[]>> {
@@ -73,5 +74,9 @@ export class ContactService {
 
     deleteContact(id: string) {
         return this.httpClinet.delete(`/contacts/service/${id}`, { observe: 'response' });
+    }
+
+    downloadCsv() {
+        return this.httpClinet.get(`/contacts/service/export`, { responseType: 'blob' });
     }
 }

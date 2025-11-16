@@ -1,12 +1,18 @@
 {
   "/contacts/service": {
-    "target": "http://localhost:8085/",
+    "target": "https://contact-service-w7dq.onrender.com",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/preference": {
+    "target": "https://contact-service-w7dq.onrender.com",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
   },
   "/auth": {
-    "target": "http://localhost:8082/",
+    "target": "https://login-service-4xmj.onrender.com",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true

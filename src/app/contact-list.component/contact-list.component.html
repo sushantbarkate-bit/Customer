@@ -1,19 +1,38 @@
 <div class="contact-list-container">
-  <h2>{{ 'contact.list.title' | translate }}</h2>
+  <div class="title-bar">
+    <h2 class="title-right">{{ 'contact.list.title' | translate }}</h2>
+    <span class="title-left">
+      <button class="filter-button" (click)="toggleFilter()" aria-label="Open Filter Panel">
+        <i class="fas fa-filter"></i>
+      </button>
+      <span>{{totalCount}}</span>
+      <button class="download-btn" (click)="downloadCsv()">
+        <i class="fa-solid fa-download"></i>
+        <span>{{'contact.download.label' | translate}}</span>
+      </button>
+
+    </span>
+  </div>
 
   <div class="contact-table-wrapper">
-    <table class="contact-table">
+    <table class="contact-table" matSort (matSortChange)="sortData($event)" [sortIconColor]="SortIconColor.Green">
       <thead>
         <tr>
-          <th>{{ 'contact.name' | translate }}</th>
-          <th>{{ 'contact.email' | translate }}</th>
-          <th>{{ 'contact.phone' | translate }}</th>
-          <th>{{ 'contact.ifsc' | translate }}</th>
-          <th>{{ 'contact.micr' | translate }}</th>
-          <th>{{ 'contact.address' | translate }}</th>
-          <th>{{ 'contact.state' | translate }}</th>
-          <th>{{ 'contact.zip' | translate }}</th>
-          <th>{{ 'contact.country' | translate }}</th>
+          <th mat-sort-header="firstName" class="custom-header">
+            <span class="header-label">
+              <i class="fa-solid fa-user"></i>
+              {{ 'contact.name' | translate }}
+            </span>
+          </th>
+
+          <th mat-sort-header="email">{{ 'contact.email' | translate }}</th>
+          <th mat-sort-header="phone">{{ 'contact.phone' | translate }}</th>
+          <th mat-sort-header="ifsc">{{ 'contact.ifsc' | translate }}</th>
+          <th mat-sort-header="micr">{{ 'contact.micr' | translate }}</th>
+          <th mat-sort-header="address">{{ 'contact.address' | translate }}</th>
+          <th mat-sort-header="city">{{ 'contact.state' | translate }}</th>
+          <th mat-sort-header="zip">{{ 'contact.zip' | translate }}</th>
+          <th mat-sort-header="country">{{ 'contact.country' | translate }}</th>
           <th>{{ 'contact.actions' | translate }}</th>
         </tr>
       </thead>
@@ -57,7 +76,7 @@
                   <i class="fa fa-eye"></i>
                 </button>
                 <button class="delete-btn" (click)="deleteContact(contact)">
-                  <i class="fa fa-trash" ></i>
+                  <i class="fa fa-trash"></i>
                 </button>
                 <button class="view-btn" (click)="editContact(contact)">
                   <i class="fa fa-edit"></i>
@@ -68,5 +87,65 @@
         </tbody>
       </table>
     </cdk-virtual-scroll-viewport>
+    <!-- Overlay -->
+    <div class="overlay" [class.show]="showFilter" (click)="toggleFilter()"></div>
+
+    <!-- Sliding filter panel -->
+    <div class="filter-panel" [class.open]="showFilter">
+      <div class="panel-header enhanced-header">
+        <h2>Filter Contacts</h2>
+        <button class="close-button" (click)="toggleFilter()" aria-label="Close Filter">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="panel-body">
+        <form class="filter-form modern-input">
+          <label for="filterName">{{'contact.first.name.label' | translate}}</label>
+          <input type="text" id="filterName" [placeholder]="'contact.first.name.placeholder' | translate" [(ngModel)]="contact.firstName"
+            name="firstName" [value]="contact.firstName" />
+
+          <label for="lastName">{{'contact.last.name.label' | translate}}</label>
+          <input type="text" id="lastName" [placeholder]="'contact.last.name.placeholder' | translate" [(ngModel)]="contact.lastName"
+            name="lastName" />
+
+          <label for="phoneNumber">{{'contact.phone' | translate}}</label>
+          <input type="number" maxlength="10" minlength="5" id="phoneNumber" [placeholder]="'contact.phone.placeholder' | translate"
+            [(ngModel)]="contact.phone" name="phone" />
+
+          <label for="ifsc">{{'contact.ifsc' | translate}}</label>
+          <input type="text" id="ifsc" [placeholder]="'contact.ifsc.placeholder' | translate" [(ngModel)]="contact.ifsc"
+            name="ifsc" />
+
+          <label for="micr">{{'contact.micr' | translate}}</label>
+          <input type="text" id="micr" [placeholder]="'contact.micr.placeholder' | translate" [(ngModel)]="contact.micr"
+            name="micr" />
+
+          <label for="address">{{'contact.address' | translate}}</label>
+          <input type="text" id="address" [placeholder]="'contact.address.placeholder' | translate" [(ngModel)]="contact.address"
+            name="address" />
+
+          <label for="state">{{'contact.state' | translate}}</label>
+          <input type="text" id="state" [placeholder]="'contact.state.placeholder' | translate" [(ngModel)]="contact.state"
+            name="state" />
+
+          <label for="zipcode">{{'contact.zip' | translate}}</label>
+          <input type="text" id="zipcode" [placeholder]="'contact.zip.placeholder' | translate" [(ngModel)]="contact.zip"
+            name="zipcode" />
+
+          <label for="country">{{'contact.country' | translate}}</label>
+          <input type="text" id="country" [placeholder]="'contact.country.placeholder' | translate" [(ngModel)]="contact.zip"
+            name="country" />
+        </form>
+      </div>
+      <div class="panel-footer modern-footer">
+        <button type="button" class="btn-apply" (click)="applyFilter()">
+          <i class="fas fa-check-circle"></i> Apply
+        </button>
+        <button type="button" class="btn-clear" (click)="clearFilter()">
+          <i class="fas fa-undo"></i> Clear
+        </button>
+      </div>
+    </div>
   </div>
 </div>

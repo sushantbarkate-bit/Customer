@@ -35,5 +35,15 @@
   "contact.actions": "Actions",
   "contact.label": "Contact",
   "contact.previous.label": "Previous",
-  "contact.next.label": "Next"
+  "contact.next.label": "Next",
+  "contact.first.name.placeholder":"Enter first name",
+  "contact.last.name.placeholder": "Enter last name",
+  "contact.phone.placeholder": "Enter phone number",
+  "contact.ifsc.placeholder": "Enter IFSC",
+  "contact.micr.placeholder": "Enter MICR",
+  "contact.address.placeholder": "Enter address",
+  "contact.state.placeholder": "Enter state",
+  "contact.zip.placeholder": "Enter zip code",
+  "contact.country.placeholder": "Enter country",
+  "contact.download.label": "Download"
 }
