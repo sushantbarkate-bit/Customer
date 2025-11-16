@@ -13,6 +13,7 @@ import {
 import { LoginResponse } from "../../model/login-model";
 import { CacheService } from "../cache-service/cache.service";
 import { SessionStorageKeys } from "../../constants/SessionStorageKeys";
+import { environment } from "../../../environments/environment.prod";
 
 @Injectable({
   providedIn: "root",
@@ -22,23 +23,25 @@ export class LoginService {
   private refreshTokenSubject = new BehaviorSubject<string | null>(null);
   private tokenTimer: any;
 
-  constructor(private httpClient: HttpClient, private cacheService: CacheService) {}
+  private baseUrl = environment.loginApi;
+
+  constructor(private httpClient: HttpClient, private cacheService: CacheService) { }
 
   get refreshTokenSub() {
     return this.refreshTokenSubject;
   }
 
   registerUser(user: any) {
-    return this.httpClient.post(`/auth/register`, user, { observe: "response" });
+    return this.httpClient.post(`${this.baseUrl}/auth/register`, user, { observe: "response" });
   }
 
   login(user: any): Observable<HttpResponse<LoginResponse>> {
-    return this.httpClient.post<LoginResponse>(`/auth/login`, user, { observe: "response" });
+    return this.httpClient.post<LoginResponse>(`${this.baseUrl}/auth/login`, user, { observe: "response" });
   }
 
   getRefreshToken(refreshToken: string): Observable<HttpResponse<LoginResponse>> {
     return this.httpClient.post<LoginResponse>(
-      `/auth/refresh`,
+      `${this.baseUrl}/auth/refresh`,
       { refreshToken },
       { observe: "response" }
     );
